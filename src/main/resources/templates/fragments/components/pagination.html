@@ -1,0 +1,43 @@
+<!-- 
+  Pagination Component
+  Usage: <div th:replace="~{fragments/components/pagination :: pagination(page=currentPage, totalPages=totalPages)}"></div>
+-->
+<div th:fragment="pagination(page, totalPages)">
+  <nav class="flex items-center justify-center gap-2 mt-6">
+      <a th:href="@{?page=1}" 
+         th:if="${page > 1}"
+         class="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+          First
+      </a>
+      
+      <a th:href="@{?page={page}(page=${page - 1})}" 
+         th:if="${page > 1}"
+         class="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+          Previous
+      </a>
+      
+      <div class="flex gap-2">
+          <th:block th:each="p : ${#numbers.sequence(1, totalPages)}">
+              <th:block th:if="${#numbers.abs(page - p) <= 2}">
+                  <a th:href="@{?page={p}(p=${p})}" 
+                     th:classappend="${p == page ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-300'}"
+                     class="px-3 py-2 border rounded-lg text-sm hover:bg-gray-50 transition-colors">
+                      <span th:text="${p}">1</span>
+                  </a>
+              </th:block>
+          </th:block>
+      </div>
+      
+      <a th:href="@{?page={page}(page=${page + 1})}" 
+         th:if="${page < totalPages}"
+         class="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+          Next
+      </a>
+      
+      <a th:href="@{?page={page}(page=${totalPages})}" 
+         th:if="${page < totalPages}"
+         class="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+          Last
+      </a>
+  </nav>
+</div>

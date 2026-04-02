@@ -1,0 +1,17 @@
+<!-- 
+  KPI Card Component
+  Usage: <div th:replace="~{fragments/components/kpi-card :: kpi-card(title='Total Students', value='1,245', icon='users', color='indigo')}"></div>
+-->
+<div th:fragment="kpi-card(title, value, icon, color='indigo')" 
+     th:classappend="|bg-${color}-50|"
+     class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+    <div class="flex items-center">
+        <div th:classappend="|bg-${color}-100|" class="p-3 rounded-lg">
+            <i th:data-lucide="${icon}" class="w-6 h-6" th:classappend="|text-${color}-600|"></i>
+        </div>
+        <div class="ml-4">
+            <p class="text-sm text-gray-500" th:text="${title}">Label</p>
+            <p class="text-2xl font-semibold text-gray-900" th:text="${value}">0</p>
+        </div>
+    </div>
+</div>

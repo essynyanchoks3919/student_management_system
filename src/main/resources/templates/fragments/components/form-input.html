@@ -1,0 +1,21 @@
+<!-- 
+  Form Input Component
+  Usage: <div th:replace="~{fragments/components/form-input :: form-input(label='Email', name='email', type='email', placeholder='Enter email', required=true)}"></div>
+-->
+<div th:fragment="form-input(label, name, type='text', placeholder='', required=false, value='', error='')">
+  <div class="mb-4">
+      <label th:for="${name}" class="block text-sm font-medium text-gray-700 mb-1">
+          <span th:text="${label}">Label</span>
+          <span th:if="${required}" class="text-red-500">*</span>
+      </label>
+      <input th:id="${name}"
+             th:name="${name}"
+             th:type="${type}"
+             th:value="${value}"
+             th:placeholder="${placeholder}"
+             th:required="${required}"
+             th:classappend="${error ? 'border-red-500' : 'border-gray-300'}"
+             class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors">
+      <p th:if="${error}" class="mt-1 text-sm text-red-600" th:text="${error}"></p>
+  </div>
+</div>

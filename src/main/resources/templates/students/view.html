@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | EduSmart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .profile-header { background: white; border-bottom: 1px solid #e2e8f0; padding: 40px 0; margin-bottom: 30px; }
+        .avatar-circle { width: 100px; height: 100px; background-color: #4f46e5; color: white; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; border-radius: 50%; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2); }
+        .info-card { border: none; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: #1e293b; }
+        .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
+        .detail-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: #64748b; font-weight: 500; }
+        .detail-value { color: #1e293b; font-weight: 600; }
+        .badge-active { background-color: #dcfce7; color: #15803d; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; }
+        .btn-edit-profile { background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; font-weight: 600; border-radius: 8px; }
+        .btn-edit-profile:hover { background-color: #e2e8f0; }
+    </style>
+</head>
+<body>
+
+<div class="profile-header">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <div class="avatar-circle me-4">
+                    <span th:text="${student.firstName.substring(0,1)} + ${student.lastName.substring(0,1)}">JD</span>
+                </div>
+                <div>
+                    <h1 class="fw-bold mb-1" th:text="${student.firstName} + ' ' + ${student.lastName}">John Doe</h1>
+                    <p class="text-muted mb-0">
+                        <i class="fas fa-id-card me-1"></i> Student ID: <span th:text="${student.studentId}">101</span>
+                        <span class="ms-3 badge-active" th:text="${student.status}">ACTIVE</span>
+                    </p>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/students" class="btn btn-outline-secondary px-4">Back</a>
+                <a th:href="@{/students/edit/{id}(id=${student.studentId})}" class="btn btn-primary px-4 bg-indigo">
+                    <i class="fas fa-edit me-2"></i> Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card info-card p-4 mb-4">
+                <h5 class="fw-bold mb-4">Academic & Personal Details</h5>
+                <div class="detail-row">
+                    <span class="detail-label">Official Email</span>
+                    <span class="detail-value" th:text="${student.email}">john@university.edu</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Contact Number</span>
+                    <span class="detail-value" th:text="${student.phoneNumber}">+1 234 567 890</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Academic Standing</span>
+                    <span class="detail-value text-success">Good Standing</span>
+                </div>
+            </div>
+
+            <div class="card info-card p-4 bg-light border-dashed">
+                <div class="text-center py-4">
+                    <i class="fas fa-history text-muted mb-2"></i>
+                    <p class="text-muted small mb-0">No recent enrollment activity to display.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card info-card p-4 text-center mb-4 border-top border-primary border-5">
+                <p class="stat-label">Current CGPA</p>
+                <p class="stat-value mb-0 text-primary" th:text="${cgpa}">3.85</p>
+                <div class="progress mt-3" style="height: 8px;">
+                    <div class="progress-bar bg-primary" role="progressbar"
+                         th:style="'width: ' + (${cgpa} / 4.0 * 100) + '%'"></div>
+                </div>
+                <p class="text-muted small mt-2">Calculated from all semesters</p>
+            </div>
+
+            <div class="card info-card p-4">
+                <h6 class="fw-bold mb-3">Quick Actions</h6>
+                <button class="btn btn-sm btn-edit-profile w-100 mb-2 text-start">
+                    <i class="fas fa-file-pdf me-2"></i> Download Transcript
+                </button>
+                <button class="btn btn-sm btn-edit-profile w-100 text-start">
+                    <i class="fas fa-envelope me-2"></i> Message Student
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

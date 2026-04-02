@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+                <p class="text-gray-500 text-sm mt-1">Welcome back to University SMS System</p>
+            </div>
+            <div class="flex gap-3">
+                <button class="px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>
+                    <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}">Today</span>
+                </button>
+                <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 inline mr-2"></i>Refresh
+                </button>
+            </div>
+        </div>
+        
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div th:replace="~{fragments/components/kpi-card :: kpi-card(title='Total Students', value='${totalStudents}', icon='users', color='indigo')}"></div>
+            <div th:replace="~{fragments/components/kpi-card :: kpi-card(title='Active Enrollments', value='${activeEnrollments}', icon='book-open', color='green')}"></div>
+            <div th:replace="~{fragments/components/kpi-card :: kpi-card(title='Courses Offered', value='${totalCourses}', icon='book', color='blue')}"></div>
+            <div th:replace="~{fragments/components/kpi-card :: kpi-card(title='Faculty Members', value='${totalFaculty}', icon='briefcase', color='yellow')}"></div>
+        </div>
+        
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Enrollment Trends Chart -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Enrollment Trends</h2>
+                <div class="h-80">
+                    <canvas id="enrollmentChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Student Distribution Chart -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Students by Department</h2>
+                <div class="h-80">
+                    <canvas id="departmentChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity & Actions -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Recent Students -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Recent Students</h2>
+                    <a href="/admin/students" class="text-indigo-600 text-sm font-medium hover:text-indigo-700">View All</a>
+                </div>
+                <div class="space-y-4">
+                    <div th:each="student : ${recentStudents}" class="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <img th:src="${'https://api.dicebear.com/7.x/avataaars/svg?seed=' + student.studentId}" 
+                                 alt="Student Avatar"
+                                 class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-medium text-gray-900" th:text="${student.firstName} + ' ' + ${student.lastName}">Student Name</p>
+                                <p class="text-sm text-gray-500" th:text="${student.email}">email@example.com</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/templates/students/{id}(id=${student.studentId})}"
+                           class="px-3 py-1 text-sm text-indigo-600 hover:bg-indigo-50 rounded transition-colors">
+                            View
+                        </a>
+                    </div>
+                    <div th:if="${#lists.isEmpty(recentStudents)}" class="text-center py-8 text-gray-500">
+                        <p class="text-sm">No students yet</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+                <div class="space-y-3">
+                    <a href="/admin/students/create" class="flex items-center gap-3 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="p-2 bg-indigo-100 rounded">
+                            <i data-lucide="plus" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">Add Student</p>
+                            <p class="text-xs text-gray-500">Create new student</p>
+                        </div>
+                    </a>
+                    <a href="/admin/students/import" class="flex items-center gap-3 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="p-2 bg-green-100 rounded">
+                            <i data-lucide="upload" class="w-5 h-5 text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">Import Students</p>
+                            <p class="text-xs text-gray-500">Bulk import CSV</p>
+                        </div>
+                    </a>
+                    <a href="/admin/enrollments" class="flex items-center gap-3 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="p-2 bg-blue-100 rounded">
+                            <i data-lucide="book-open" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">Manage Enrollments</p>
+                            <p class="text-xs text-gray-500">View all enrollments</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page-Specific Scripts -->
+    <div th:fragment="page-scripts">
+        <script>
+            /**
+             * Initialize Dashboard Charts
+             * Displays enrollment trends and department distribution
+             */
+            document.addEventListener('DOMContentLoaded', function() {
+                initEnrollmentChart();
+                initDepartmentChart();
+            });
+            
+            /**
+             * Enrollment Trends Line Chart
+             */
+            function initEnrollmentChart() {
+                const ctx = document.getElementById('enrollmentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'New Enrollments',
+                            data: [120, 150, 180, 200, 210, 190, 220, 250, 240, 260, 280, 300],
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#4f46e5',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: { size: 12 }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            /**
+             * Department Distribution Doughnut Chart
+             */
+            function initDepartmentChart() {
+                const ctx = document.getElementById('departmentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Engineering', 'Science', 'Arts', 'Commerce', 'Law'],
+                        datasets: [{
+                            data: [350, 280, 200, 150, 120],
+                            backgroundColor: [
+                                '#4f46e5',
+                                '#06b6d4',
+                                '#10b981',
+                                '#f59e0b',
+                                '#ef4444'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: { size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>
+</body>
+</html>

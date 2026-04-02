@@ -1,0 +1,76 @@
+<aside th:fragment="sidebar" class="w-64 bg-slate-900 text-white min-h-screen flex flex-col fixed md:relative z-50 md:z-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300 md:transition-none">
+  <!-- Sidebar Content -->
+  <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+      <!-- Dashboard -->
+      <a href="/" th:href="@{/}" 
+         class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors"
+         th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/') ? 'bg-indigo-600' : ''}">
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          <span class="font-medium">Dashboard</span>
+      </a>
+      
+      <!-- Students Section -->
+      <div class="pt-4">
+          <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Students</p>
+          <a href="/admin/students" th:href="@{/templates/students}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/students') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="users" class="w-5 h-5"></i>
+              <span class="font-medium">Manage Students</span>
+          </a>
+          <a href="/admin/students/import" th:href="@{/templates/students/import}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/import') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="upload" class="w-5 h-5"></i>
+              <span class="font-medium">Import Students</span>
+          </a>
+      </div>
+      
+      <!-- Enrollments Section -->
+      <div class="pt-4">
+          <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Academics</p>
+          <a href="/admin/enrollments" th:href="@{/admin/enrollments}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/enrollments') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+              <span class="font-medium">Enrollments</span>
+          </a>
+          <a href="/admin/courses" th:href="@{/admin/courses}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/courses') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="book" class="w-5 h-5"></i>
+              <span class="font-medium">Courses</span>
+          </a>
+      </div>
+      
+      <!-- Reports Section -->
+      <div class="pt-4">
+          <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Analytics</p>
+          <a href="/admin/reports" th:href="@{/admin/reports}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/reports') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+              <span class="font-medium">Reports</span>
+          </a>
+      </div>
+      
+      <!-- Settings Section -->
+      <div class="pt-4">
+          <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">System</p>
+          <a href="/admin/settings" th:href="@{/admin/settings}"
+             class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors ml-2"
+             th:classappend="${#strings.contains(#httpServletRequest.requestURI, '/settings') ? 'bg-indigo-600' : ''}">
+              <i data-lucide="settings" class="w-5 h-5"></i>
+              <span class="font-medium">Settings</span>
+          </a>
+      </div>
+  </nav>
+  
+  <!-- Sidebar Footer -->
+  <div class="border-t border-slate-700 p-4">
+      <div class="text-xs text-gray-400 text-center">
+          <p>University SMS v1.0.0</p>
+          <p class="mt-1">&copy; 2024 All Rights Reserved</p>
+      </div>
+  </div>
+</aside>

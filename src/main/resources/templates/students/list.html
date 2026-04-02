@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Student Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .sidebar { background-color: #ffffff; border-right: 1px solid #e2e8f0; min-height: 100vh; position: sticky; top: 0; }
+        .nav-link { color: #64748b; font-weight: 500; border-radius: 8px; margin-bottom: 5px; transition: all 0.2s; }
+        .nav-link:hover { background-color: #f1f5f9; color: #4f46e5; }
+        .nav-link.active { background-color: #4f46e5 !important; color: white !important; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
+        .card { border: none; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .table thead th { background-color: #f8fafc; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: #64748b; border-top: none; }
+        .btn-add { background-color: #4f46e5; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+        .btn-add:hover { background-color: #4338ca; transform: translateY(-1px); }
+        /* Modern Soft Badges */
+        .badge-active { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .badge-inactive { background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+        .action-btn { border-radius: 6px; padding: 5px 10px; transition: transform 0.1s; }
+        .action-btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar p-4">
+            <div class="d-flex align-items-center mb-4 ps-2">
+                <div class="bg-primary rounded-3 p-2 me-2 text-white">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h4 class="mb-0 fw-bold text-dark">EduSmart</h4>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/students">
+                        <i class="fas fa-users me-2"></i> Students
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-book me-2"></i> Courses
+                    </a>
+                </li>
+                <li class="nav-item mt-4 text-uppercase small fw-bold text-muted">System</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog me-2"></i> Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-md-10 p-5">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold mb-1">Student Directory</h2>
+                    <p class="text-muted mb-0">Manage and monitor all registered students.</p>
+                </div>
+                <a href="/students/add" class="btn btn-primary btn-add shadow-sm">
+                    <i class="fas fa-plus me-2"></i> Add Student
+                </a>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success border-0 shadow-sm mb-4" role="alert">
+                <i class="fas fa-check-circle me-2"></i> <span th:text="${success}"></span>
+            </div>
+
+            <div class="card overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                            <tr>
+                                <th class="ps-4">Student ID</th>
+                                <th>Full Name</th>
+                                <th>Email Address</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${students == null or students.isEmpty()}">
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="fas fa-folder-open fa-2x mb-3 d-block"></i>
+                                    No students found in the database.
+                                </td>
+                            </tr>
+                            <tr th:each="student : ${students}">
+                                <td class="ps-4 fw-semibold text-primary" th:text="'#' + ${student.studentId}"></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </div>
+                                        <span class="fw-medium" th:text="${student.firstName} + ' ' + ${student.lastName}"></span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" th:text="${student.email}"></td>
+                                <td>
+                                        <span class="badge rounded-pill px-3 py-2"
+                                              th:classappend="${student.status == 'ACTIVE'} ? 'badge-active' : 'badge-inactive'"
+                                              th:text="${student.status}"></span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group">
+                                        <a th:href="@{/students/view/{id}(id=${student.studentId})}" class="btn btn-sm btn-outline-secondary action-btn me-2">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a th:href="@{/students/edit/{id}(id=${student.studentId})}" class="btn btn-sm btn-outline-primary action-btn me-2">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a th:href="@{/students/delete/{id}(id=${student.studentId})}"
+                                           class="btn btn-sm btn-outline-danger action-btn"
+                                           onclick="return confirm('Archive this record?')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <nav th:if="${totalPages > 1}" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link border-0 shadow-sm mx-1 rounded" th:href="@{/students(page=${currentPage - 1})}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${currentPage == i} ? 'active'">
+                        <a class="page-link border-0 shadow-sm mx-1 rounded" th:href="@{/students(page=${i})}" th:text="${i + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link border-0 shadow-sm mx-1 rounded" th:href="@{/students(page=${currentPage + 1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

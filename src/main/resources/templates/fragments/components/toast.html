@@ -1,0 +1,16 @@
+<!-- 
+  Toast Component (HTML structure, styles handled by toast-notification.js)
+  Used dynamically from JavaScript
+-->
+<div th:fragment="toast" class="bg-white rounded-lg shadow-lg border-l-4 border-indigo-600 p-4 animate-slide-in">
+  <div class="flex items-start gap-3">
+      <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+      <div class="flex-1">
+          <h3 id="toastTitle" class="font-semibold text-gray-900">Success</h3>
+          <p id="toastMessage" class="text-sm text-gray-600 mt-1">Operation completed successfully</p>
+      </div>
+      <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+  </div>
+</div>
