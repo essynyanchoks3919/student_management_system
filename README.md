@@ -95,11 +95,11 @@ The project follows a layered architecture with separation of concerns between t
 - Security Layer: Spring Security with JWT token-based authentication
 
 # Technology Integration
-**1** Spring Boot Starter Dependencies: Utilized for simplified configuration
-**2** JPA Data Relationships: Proper entity mapping and relationships
-**3** Spring Security: Role-based access control (RBAC)
-**4** JWT Authentication: Stateless authentication mechanism
-**5** Lombok: Boilerplate code reduction (getters, setters, constructors)
+- Spring Boot Starter Dependencies: Utilized for simplified configuration
+-  JPA Data Relationships: Proper entity mapping and relationships
+-  Spring Security: Role-based access control (RBAC)
+-  JWT Authentication: Stateless authentication mechanism
+-  Lombok: Boilerplate code reduction (getters, setters, constructors)
 
 # Innovation & Unique Aspects
 1. Automatic Database Initialization
