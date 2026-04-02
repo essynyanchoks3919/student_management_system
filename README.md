@@ -1,48 +1,82 @@
-# Student Management System
+# Project Description
+This project is a Student Management System designed to manage student records, enrollment, and academic performance efficiently.
 
-## MySQL Workbench Setup
-1. **Download and Install MySQL Workbench**: Visit the official [MySQL website](https://dev.mysql.com/downloads/workbench/) and download the latest version suitable for your operating system. Follow the installation instructions provided.
+# System Requirements
+- JDK 11 or higher  
+- Maven 3.6 or higher  
+- MySQL 5.7 or higher  
+- MySQL Workbench 8.0 or higher  
 
-2. **Open MySQL Workbench**: Launch the application after a successful installation.
-
-3. **Create a New Connection**: Click on the `+` sign next to `MySQL Connections` to set up a new connection.
-   - **Connection Name**: Enter a name for your connection (e.g., `StudentManagementSystem`).
-   - **Hostname**: Typically `localhost` for local development.
-   - **Port**: Default is `3306`.
-   - **Username**: Enter your MySQL username.
-   - Test the connection and save.
-
-## Database Connection Details
-- **Host**: `localhost`
-- **Port**: `3306`
-- **Database Name**: `student_management`
-- **Username**: `your_mysql_username`
-- **Password**: `your_mysql_password`
-
-Ensure you've set up the database schema as described in the application documentation.
-
-## Application Startup
-1. **Clone the Repository**: Use the following command to clone:
-   ```bash
-   git clone https://github.com/essynyanchoks3919/student_management_system.git
+# Project Setup
+1. **Clone the repository:**  
+   ```bash  
+   git clone https://github.com/essynyanchoks3919/student_management_system.git  
    ```
 
-2. **Install Dependencies**: Navigate to the project directory and run:
-   ```bash
-   npm install
+2. **Navigate into the project directory:**  
+   ```bash  
+   cd student_management_system  
    ```
 
-3. **Start the Application**: Run the application using:
-   ```bash
-   npm start
-   ```
+3. **Install dependencies:**  
+   ```bash  
+   mvn install  
+   ```  
 
-4. **Access the Application**: Open your browser and navigate to `http://localhost:3000`.
+# MySQL Workbench Configuration
+1. Open MySQL Workbench and click on `+` to create a new connection.  
+2. **Connection Name:** university_database  
+3. **Username:** root  
+4. **Password:** 1111  
+5. Create a new schema (database) for the project:  
+   - Execute the following SQL command:  
+     ```sql  
+     CREATE DATABASE student_management;  
+     ```  
+6. Make sure to set this connection in your application properties in Spring Boot settings:
+   - Adjust `application.properties` to reflect the connection details:  
+   ```properties  
+   spring.datasource.url=jdbc:mysql://localhost:3306/student_management  
+   spring.datasource.username=root  
+   spring.datasource.password=1111  
+   ```  
 
-## Login Instructions
-- **Navigate to the Login Page**: Once the application is running, go to the login page.
-- **Enter Credentials**: Use the following credentials to log in:
-   - **Username**: `admin`
-   - **Password**: `password`
+# Running the Project
+1. Ensure the MySQL service is running:  
+   - Start the MySQL service via your command line or MySQL Workbench.  
+2. **Build the project with Maven:**  
+   ```bash  
+   mvn clean package  
+   ```  
+3. **Run the application:**  
+   ```bash  
+   mvn spring-boot:run  
+   ```  
+4. Wait for a successful startup message in the console.
 
-Make sure to change the default credentials after your first login for security reasons.
+# Login Instructions
+- Navigate to [http://localhost:8080/login](http://localhost:8080/login)  
+- **Admin Username:** admin  
+- **Admin Password:** admin123  
+- Change the default credentials in the user management section once you log in.
+
+# Key Features
+- User registration and management  
+- Course enrollment and tracking  
+- Academic performance monitoring  
+
+# System Architecture
+- The project follows a layered architecture with separation of concerns between the presentation, service, and data access layers.
+
+# Innovation Aspects
+- Utilizes modern technologies such as Spring Boot, MySQL, and RESTful APIs for enhanced performance and scalability.
+
+# Challenges Encountered
+- Configuring MySQL with Spring Boot initially posed challenges due to version compatibility issues.
+
+# Lessons Learned
+- Gained experience in integrating MySQL with Spring Boot applications and managing dependencies effectively.
+
+---  
+*Current Date and Time: 2026-04-02 11:22:08 (UTC)*  
+*Prepared by: essynyanchoks3919*
