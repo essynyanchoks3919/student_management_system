@@ -5,23 +5,7 @@ This project is a Student Management System designed to manage student records, 
 - JDK 11 or higher  
 - Maven 3.6 or higher  
 - MySQL 5.7 or higher  
-- MySQL Workbench 8.0 or higher  
-
-# Project Setup
-1. **Clone the repository:**  
-   ```bash  
-   git clone https://github.com/essynyanchoks3919/student_management_system.git  
-   ```
-
-2. **Navigate into the project directory:**  
-   ```bash  
-   cd student_management_system  
-   ```
-
-3. **Install dependencies:**  
-   ```bash  
-   mvn install  
-   ```  
+- MySQL Workbench 8.0 or higher
 
 # MySQL Workbench Configuration
 1. Open MySQL Workbench and click on `+` to create a new connection.  
@@ -30,18 +14,17 @@ This project is a Student Management System designed to manage student records, 
 4. **Password:** 1111  
 5. Connect to the database with the same parameters used to create a new connection.
 
-# Running the Project
-1. Ensure the MySQL service is running:  
-   - Start the MySQL service via your command line or MySQL Workbench.  
-2. **Build the project with Maven:**  
+# How to run the project
+1. **Clone the repository:**  
    ```bash  
-   mvn clean package  
-   ```  
-3. **Run the application:**  
-   ```bash  
-   mvn spring-boot:run  
-   ```  
-4. Wait for a successful startup message in the console.
+   git clone https://github.com/essynyanchoks3919/student_management_system.git  
+   ```
+
+2. **Open the project in Intellij:**  
+ 
+3. **Run studentmanagementsystemApplication.java**
+  
+4. **Access http://localhost:8080/login**  
 
 # Login Instructions
 - Navigate to [http://localhost:8080/login](http://localhost:8080/login)  
