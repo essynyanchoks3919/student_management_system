@@ -28,18 +28,7 @@ This project is a Student Management System designed to manage student records, 
 2. **Connection Name:** university_database  
 3. **Username:** root  
 4. **Password:** 1111  
-5. Create a new schema (database) for the project:  
-   - Execute the following SQL command:  
-     ```sql  
-     CREATE DATABASE student_management;  
-     ```  
-6. Make sure to set this connection in your application properties in Spring Boot settings:
-   - Adjust `application.properties` to reflect the connection details:  
-   ```properties  
-   spring.datasource.url=jdbc:mysql://localhost:3306/student_management  
-   spring.datasource.username=root  
-   spring.datasource.password=1111  
-   ```  
+5. Connect to the database with the same parameters used to create a new connection.
 
 # Running the Project
 1. Ensure the MySQL service is running:  
