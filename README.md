@@ -1,5 +1,6 @@
 # Project Description
 This project is a Student Management System designed to manage student records, enrollment, and academic performance efficiently.
+Screenshots of the system are attached on the the "ISSUES TAB".
 
 # System Requirements
 - JDK 21  
