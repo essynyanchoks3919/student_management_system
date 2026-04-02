@@ -78,23 +78,21 @@ Data integrity checks
 Error handling and user feedback
 
 # System Architecture
-- The project follows a layered architecture with separation of concerns between the presentation, service, and data access layers.
-**Technology Stack**
-**Component**	    **Technology**    
-Backend            	Spring Boot Framework
-Language	            Java   	
-Build Tool	         Maven	
-Database             MySQL	
-ORM	               JPA
-Frontend Template 	Thymeleaf
+The project follows a layered architecture with separation of concerns between the presentation, service, and data access layers.
+**Technology Stack**  
+- Backend:Spring Boot Framework
+- Language:Java   	
+- Build Tool:Maven	
+- Database: MySQL	
+- ORM: JPA
+- Frontend Template:Thymeleaf
 
 **Key Architectural Patterns**
-
-**1** MVC Pattern: Separation of Model, View, and Controller
-**2** Layered Architecture: Clear separation between presentation, business logic, and data access layers
-**3** Repository Pattern: Data access abstraction using Spring Data JPA
-**4** Service Layer: Business logic encapsulation
-**5** Security Layer: Spring Security with JWT token-based authentication
+- MVC Pattern: Separation of Model, View, and Controller
+- Layered Architecture: Clear separation between presentation, business logic, and data access layers
+- Repository Pattern: Data access abstraction using Spring Data JPA
+- Service Layer: Business logic encapsulation
+- Security Layer: Spring Security with JWT token-based authentication
 
 # Technology Integration
 **1** Spring Boot Starter Dependencies: Utilized for simplified configuration
