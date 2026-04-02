@@ -53,27 +53,27 @@ This project is a Student Management System designed to manage student records, 
 **Core Functionalities**
 **Student Profile Management**
 
-**1** Create, read, update, and delete student records
+**1**. Create, read, update, and delete student records
 Store comprehensive student information
 Maintain academic history and credentials
 Authentication & Authorization
 
-**2** Secure login system with role-based access control
+**2**. Secure login system with role-based access control
 Spring Security integration with JWT token support
 User session management and protection
 Database Persistence
 
-**3** MySQL database backend
+**3**. MySQL database backend
 JPA/Hibernate ORM for data mapping
 Automatic schema generation and updates
 User Interface
 
-**4** Responsive HTML/CSS frontend
+**4**. Responsive HTML/CSS frontend
 Thymeleaf template engine for server-side rendering
 Intuitive navigation and user experience
 Input Validation
 
-**5** Server-side validation using Spring Validation
+**5**. Server-side validation using Spring Validation
 Data integrity checks
 Error handling and user feedback
 
@@ -89,6 +89,7 @@ ORM	               JPA
 Frontend Template 	Thymeleaf
 
 **Key Architectural Patterns**
+
 **1** MVC Pattern: Separation of Model, View, and Controller
 **2** Layered Architecture: Clear separation between presentation, business logic, and data access layers
 **3** Repository Pattern: Data access abstraction using Spring Data JPA
