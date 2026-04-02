@@ -2,10 +2,11 @@
 This project is a Student Management System designed to manage student records, enrollment, and academic performance efficiently.
 
 # System Requirements
-- JDK 11 or higher  
+- JDK 21  
 - Maven 3.6 or higher  
-- MySQL 5.7 or higher  
-- MySQL Workbench 8.0 or higher
+- Intellij
+- Apache Tomcat 
+- MySQL Workbench 8.0 
 
 # MySQL Workbench Configuration
 1. Open MySQL Workbench and click on `+` to create a new connection.  
